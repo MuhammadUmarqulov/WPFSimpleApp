@@ -1,0 +1,5 @@
+.vs/
+ExamTask.Domain/bin
+ExamTask.Domain/obj
+ExamTask.WPF/obj
+ExamTask.WPF/bin
