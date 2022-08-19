@@ -1,0 +1,17 @@
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Service.deps.json
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Service.dll
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Service.pdb
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Data.dll
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Domain.dll
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Data.pdb
+D:\WPF\ExamTask\ExamTask.Service\bin\Debug\net6.0\ExamTask.Domain.pdb
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.csproj.AssemblyReference.cache
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.GeneratedMSBuildEditorConfig.editorconfig
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.AssemblyInfoInputs.cache
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.AssemblyInfo.cs
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.csproj.CoreCompileInputs.cache
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.csproj.CopyComplete
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.dll
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\refint\ExamTask.Service.dll
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ExamTask.Service.pdb
+D:\WPF\ExamTask\ExamTask.Service\obj\Debug\net6.0\ref\ExamTask.Service.dll

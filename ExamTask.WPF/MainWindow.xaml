@@ -14,39 +14,58 @@
 
     <WindowChrome.WindowChrome>
         <WindowChrome 
-             CaptionHeight="36"
+             CaptionHeight="10"
              ResizeBorderThickness="0"
              GlassFrameThickness="0"
              CornerRadius="0"/>
     </WindowChrome.WindowChrome>
 
+
+    
+
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40"/>
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Border Background="#242F3D">
-            <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal" 
-                        HorizontalAlignment="Right" Margin="0 0 5 0">
-                <md:PackIcon Kind="WindowMinimize" Foreground="Snow" 
-                             Height="15" 
-                             Width="15"/>
 
-                <md:PackIcon Kind="Fullscreen" Foreground="Snow" 
-                             Height="15"
-                             Width="15"/>
-                
-                <md:PackIcon Kind="ExitToApp" Foreground="Snow" 
-                             Height="15" MouseDown="CloseWindow_MouseDown"
-                             Width="15"/>
 
+        <Border VerticalAlignment="Center" x:Name="MoveP" Grid.Row="0" Background="#242F3D" >
+            <StackPanel Orientation="Horizontal" 
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="4 0 0 0">
+                <Button Height="13"
+                    Width="13"
+                    md:ButtonAssist.CornerRadius="20" 
+                    Background="Red" 
+                    BorderThickness="0" 
+                    x:Name="ExitBtn"
+                    Click="CloseBtn_Click"
+                    Margin="3.5"/>
+                <Button Margin="2"  
+                    Height="13"
+                    Width="13"
+                    md:ButtonAssist.CornerRadius="20"
+                    Background="Green"
+                    BorderThickness="0"
+                    x:Name="MinimzeBtn"
+                    Click="FullScreenBtn_Click" />
+                <Button Margin="3"
+                    Height="13"
+                    Width="13"
+                    Click="MinimizeBtn_Click"
+                    md:ButtonAssist.CornerRadius="20"
+                    Background="Yellow" 
+                    BorderThickness="0" />
             </StackPanel>
         </Border>
-        
+
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*" MinWidth="250" MaxWidth="400"/>
                 <ColumnDefinition Width="2*"/>
             </Grid.ColumnDefinitions>
@@ -55,7 +74,7 @@
 
             </Grid>
 
-            <Grid Grid.Column="1" Background="#17212B">
+            <Grid Grid.Column="0" Background="#17212B" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="50"/>
                     <RowDefinition/>
@@ -76,9 +95,9 @@
                 </Grid>
 
             </Grid>
-            <GridSplitter Grid.Column="1" Width="2"/>
+            <GridSplitter Grid.Column="0" Width="2"/>
 
-            <Grid Grid.Column="2" Background="#0E1621">
+            <Grid Grid.Column="1" Background="#0E1621">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="80"/>
@@ -87,7 +106,7 @@
 
 
                 <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    
+
                     <Button x:Name="SaveStudentBtn" Style="{StaticResource MaterialDesignRaisedButton}" 
                             md:ButtonAssist.CornerRadius="7" Click="SaveStudentBtn_Click"
                             Background="#242F3D" Foreground="Snow" FontWeight="DemiBold"

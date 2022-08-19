@@ -1,4 +1,4 @@
-namespace ExamTask.Main.Models.DTOs
+namespace ExamTask.Service.Models.DTOs
 {
     public class StudentForCreation
     {

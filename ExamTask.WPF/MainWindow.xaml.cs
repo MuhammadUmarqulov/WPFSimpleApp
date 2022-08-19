@@ -1,23 +1,18 @@
-﻿using ExamTask.Main.Contracts;
-using ExamTask.Main.Models;
-using ExamTask.Main.Services;
+﻿using ExamTask.Domain.Entities;
+using ExamTask.Service.Interfaces;
+using ExamTask.Service.Services;
 using ExamTask.UI.Controls;
 using ExamTask.UI.Pages;
+using ExamTask.WPF.UI.Windows;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ExamTask.WPF
 {
@@ -27,16 +22,18 @@ namespace ExamTask.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly IStudentService studentService;
+        private readonly IUserService userService;
+        private StudentInfo studentInfo;
         private Thread thread;
         public MainWindow()
         {
-            studentService = new StudentService();
+
+            userService = new UserService();
 
             InitializeComponent();
         }
 
-        private IEnumerable<Student> allStudents;
+        private IEnumerable<User> allStudents;
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -44,8 +41,7 @@ namespace ExamTask.WPF
             {
                 Dispatcher.Invoke(() => StudentsList.Items.Clear());
 
-
-                allStudents = await studentService.GetAllAsync();
+                allStudents = await userService.GetAllAsync();
 
                 await LoadStudents(allStudents);
             });
@@ -62,7 +58,7 @@ namespace ExamTask.WPF
 
             thread = new Thread(async () =>
             {
-                allStudents = await studentService.GetAllAsync();
+                allStudents = await userService.GetAllAsync();
 
                 allStudents = allStudents.Where(p => p.FirstName.ToLower().Contains(text)
                     || p.LastName.ToLower().Contains(text)
@@ -73,18 +69,22 @@ namespace ExamTask.WPF
             thread.Start();
         }
 
-        private async Task LoadStudents(IEnumerable<Student> users)
+        private async Task LoadStudents(IEnumerable<User> students)
         {
-            foreach (var user in users)
+            foreach (var student in students)
             {
                 await this.Dispatcher.InvokeAsync(() =>
                 {
                     PrivateChat privateChat = new PrivateChat();
-                    privateChat.NameTxt.Text = user.FirstName + " " + user.LastName;
-                    privateChat.FacultyMsgTxt.Text = user.Faculty;
-                    privateChat.DateTimeTxt.Text = user.CreatedAt.ToString();
-                    privateChat.UserImg.ImageSource = user.Image is not null
-                        ? new BitmapImage(new Uri("https://talabamiz.uz/" + user.Image.Path))
+
+                    privateChat.NameTxt.Text = student.FirstName + " " + student.LastName;
+                    privateChat.FacultyMsgTxt.Text = student.Faculty;
+                    privateChat.StudentId.Text = student.Id.ToString();
+                    privateChat.DateTimeTxt.Text = student.CreatedAt.ToString();
+
+
+                    privateChat.UserImg.ImageSource = student.Image is not null
+                        ? new BitmapImage(new Uri("https://talabamiz.uz/" + student.Image.Path))
                         : new BitmapImage(new Uri("https://talabamiz.uz/Images//99daf8ac38de4433aa36a61baf4c9c4d.png"));
 
                     StudentsList.Items.Add(privateChat);
@@ -107,9 +107,32 @@ namespace ExamTask.WPF
             InputerArea.Content = new StudentAddPage();
         }
 
-        private void CloseWindow_MouseDown(object sender, MouseButtonEventArgs e)
+
+        private async void PrivateChat_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            var privateChat = (PrivateChat)sender;
+
+            var student = await userService.GetAsync
+                (long.Parse(privateChat.StudentId.Text));
+
+            studentInfo = new StudentInfo();
+
+            studentInfo.StudentId.Content = student.Id.ToString();
+        }
+
+        private void MinimizeBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Environment.Exit(0);
+        }
+
+        private void FullScreenBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Maximized;
         }
     }
 }

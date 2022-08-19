@@ -8,8 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="6.5.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.5.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExamTask.Data\ExamTask.Data.csproj" />
+    <ProjectReference Include="..\ExamTask.Service\ExamTask.Service.csproj" />
   </ItemGroup>
 
 </Project>

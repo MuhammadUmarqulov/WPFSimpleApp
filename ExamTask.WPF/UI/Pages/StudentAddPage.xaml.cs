@@ -1,22 +1,9 @@
-﻿using ExamTask.Main.Contracts;
-using ExamTask.Main.Models.DTOs;
-using ExamTask.Main.Services;
+﻿using ExamTask.Service.Interfaces;
+using ExamTask.Service.Models.DTOs;
+using ExamTask.Service.Services;
 using ExamTask.WPF.UI.Windows;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ExamTask.UI.Pages
 {
@@ -25,21 +12,20 @@ namespace ExamTask.UI.Pages
     /// </summary>
     public partial class StudentAddPage : Page
     {
-        private readonly MessageViewer messageViewer;
+
         public StudentAddPage()
         {
-            messageViewer = new MessageViewer();
 
             InitializeComponent();
         }
 
         private async void StudentAddBtn_Click(object sender, RoutedEventArgs e)
         {
-           if (!string.IsNullOrEmpty(NewStudentFirstName.Text) &&
-               !string.IsNullOrEmpty(NewStudentLastName.Text) &&
-               !string.IsNullOrEmpty(NewStudentFaculty.Text))
-           {
-                
+            if (!string.IsNullOrEmpty(NewStudentFirstName.Text) &&
+                !string.IsNullOrEmpty(NewStudentLastName.Text) &&
+                !string.IsNullOrEmpty(NewStudentFaculty.Text))
+            {
+
                 var newStudent = new StudentForCreation()
                 {
                     FirstName = NewStudentFirstName.Text,
@@ -47,7 +33,7 @@ namespace ExamTask.UI.Pages
                     Faculty = NewStudentFaculty.Text
                 };
 
-                using IStudentService studentService = new StudentService();
+                using IUserService studentService = new UserService();
 
                 var response = await studentService.CreateAsync(newStudent);
 
@@ -57,7 +43,10 @@ namespace ExamTask.UI.Pages
                     ErrorResponse.Visibility = Visibility.Visible;
                 }
                 else
+                {
+                    MessageViewer messageViewer = new MessageViewer();
                     messageViewer.Show();
+                }
             }
             else
             {

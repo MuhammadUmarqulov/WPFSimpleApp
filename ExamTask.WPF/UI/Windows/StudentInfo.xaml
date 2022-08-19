@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExamTask.WPF.UI.Windows"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" WindowStyle="None"
         mc:Ignorable="d" Background="#242F3D"
@@ -22,6 +21,7 @@
                     ToolTip="Resource name: MaterialDesignRaisedButton" HorizontalAlignment="Right"
                     IsEnabled="{Binding DataContext.ControlsEnabled, 
                     RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
+                    Click="Button_Click"
                     Background="#242F3D" BorderThickness="0" Margin="0 0 5 0">
 
                 <Button.Content>
@@ -50,8 +50,35 @@
 
                     <TextBlock Text="Passport Image" Foreground="Snow" Margin="40 0 0 0"/>
                 </StackPanel>
-                
-                
+
+                <WrapPanel Width="280" Background="#242F3D" Margin="0 10">
+                    <md:PackIcon Kind="Identifier" Foreground="Snow" Height="40" 
+                                 Width="40" Margin="0 0 10 0"/>
+                    
+                    <Label Name="StudentId" Content="1" Foreground="Snow" 
+                           VerticalAlignment="Center" FontSize="21"/>
+                </WrapPanel>
+
+                <WrapPanel Width="280" Background="#242F3D" Margin="0 10">
+                    <md:PackIcon Kind="User" Foreground="Snow" Height="40" 
+                                 Width="40" Margin="0 0 10 0"/>
+                    <Label Name="StudentFirstName" Content="Muhammadkarim" 
+                           Foreground="Snow" VerticalAlignment="Center" FontSize="21"/>
+                </WrapPanel>
+
+                <WrapPanel Width="280" Background="#242F3D" Margin="0 10">
+                    <md:PackIcon Kind="User" Foreground="Snow" Height="40" 
+                                 Width="40" Margin="0 0 10 0"/>
+                    <Label Name="StudentLastName" Content="To'xtaboyev" 
+                           Foreground="Snow" VerticalAlignment="Center" FontSize="21"/>
+                </WrapPanel>
+
+                <WrapPanel Width="280" Background="#242F3D" Margin="0 10">
+                    <md:PackIcon Kind="EducationOutline" Foreground="Snow" 
+                                 Height="40" Width="40" Margin="0 0 10 0"/>
+                    <Label Name="StudentFaculty" Content=".NET" Foreground="Snow" 
+                           VerticalAlignment="Center" FontSize="21"/>
+                </WrapPanel>
 
             </StackPanel>
         </Grid>

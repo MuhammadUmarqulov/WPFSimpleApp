@@ -1,22 +1,12 @@
-﻿using ExamTask.Main.Contracts;
-using ExamTask.Main.Models.DTOs;
-using ExamTask.Main.Services;
+﻿using ExamTask.Service.Interfaces;
+using ExamTask.Service.Models.DTOs;
+using ExamTask.Service.Services;
 using ExamTask.WPF.UI.Windows;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ExamTask.UI.Pages
 {
@@ -27,11 +17,10 @@ namespace ExamTask.UI.Pages
     {
         private string imagePath;
         private string passportImagePath;
-        private MessageViewer messageViewer;
+
 
         public StudentSavePage()
         {
-            messageViewer = new MessageViewer();
             InitializeComponent();
         }
 
@@ -41,15 +30,15 @@ namespace ExamTask.UI.Pages
 
             if (IsValidId)
             {
-                using IStudentService studentService = new StudentService();
+                using IUserService studentService = new UserService();
 
-                var oldStudent = await studentService.GetAsync(result); 
+                var oldStudent = await studentService.GetAsync(result);
 
-                if (oldStudent is null )
+                if (oldStudent is null)
                 {
                     ErrorResponse.Text = "Student not fount";
                     ErrorResponse.Visibility = Visibility.Visible;
-                    
+
                     return;
                 }
 
@@ -70,22 +59,26 @@ namespace ExamTask.UI.Pages
                 else
                     updateStudentInfo.Faculty = oldStudent.Faculty;
 
-
-                var response = await studentService.UpdateAsync(result, updateStudentInfo);
-
-                if (imagePath != null && passportImagePath != null) 
+                if (imagePath != null && passportImagePath != null)
                     await studentService.UploadPicturesAsync(oldStudent.Id, imagePath, passportImagePath);
 
-                else if (imagePath != null && passportImagePath == null ||
+                if (imagePath != null && passportImagePath == null ||
                     imagePath == null && passportImagePath != null)
                 {
                     ErrorResponse.Text = "Please upload both images";
                     ErrorResponse.Visibility = Visibility.Visible;
+
+                    return;
                 }
 
-                if (response is not null)
-                    messageViewer.Show();
+                var response = await studentService.UpdateAsync(result, updateStudentInfo);
 
+
+                if (response is not null)
+                {
+                    MessageViewer messageViewer = new();
+                    messageViewer.Show();
+                }
             }
             else
             {
@@ -96,26 +89,30 @@ namespace ExamTask.UI.Pages
 
         private void ImageUploader_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image Files(*.PNG,*.JPG;)|*.JPG;*.PNG";
-            
-            openFileDialog.InitialDirectory = Environment.GetFolderPath
-                (Environment.SpecialFolder.MyPictures);
+            var openFileDialog = new OpenFileDialog
+            {
+                Filter = "Image Files(*.PNG,*.JPG;)|*.JPG;*.PNG",
+
+                InitialDirectory = Environment.GetFolderPath
+                (Environment.SpecialFolder.MyPictures)
+            };
 
             if (openFileDialog.ShowDialog() is true)
             {
                 imagePath = openFileDialog.FileName;
 
                 Image.Text = imagePath.Split('\\').Last();
-            }                
+            }
         }
 
         private void PasspostImageBtn_Click(object sender, RoutedEventArgs e)
         {
-            var openFileDialog = new Microsoft.Win32.OpenFileDialog();
-            openFileDialog.Filter = "Image Files(*.PNG,*.JPG;)|*.JPG;*.PNG";
-            openFileDialog.InitialDirectory = Environment.GetFolderPath
-                (Environment.SpecialFolder.MyPictures);
+            var openFileDialog = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Image Files(*.PNG,*.JPG;)|*.JPG;*.PNG",
+                InitialDirectory = Environment.GetFolderPath
+                (Environment.SpecialFolder.MyPictures)
+            };
 
             if (openFileDialog.ShowDialog() == true)
             {

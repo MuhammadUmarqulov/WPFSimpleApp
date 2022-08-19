@@ -1,4 +1,4 @@
-namespace ExamTask.Constants
+namespace ExamTask.Domain.Constants
 {
     public abstract class ApiConstants
     {

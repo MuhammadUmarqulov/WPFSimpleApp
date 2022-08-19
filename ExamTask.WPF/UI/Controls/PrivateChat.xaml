@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ExamTask.UI.Controls"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" MouseDown="UserControl_MouseDown"
              Height="60" MinWidth="250" MaxWidth="400">
+    
     <Grid Background="#0E1621">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="60"/>
@@ -27,14 +28,18 @@
                     <ColumnDefinition/>
                     <ColumnDefinition Width="40"/>
                 </Grid.ColumnDefinitions>
+                
                 <StackPanel Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Left">
+                    
                     <StackPanel Orientation="Horizontal">
                         <md:PackIcon Kind="User" Foreground="Snow"/>
-                        <TextBlock x:Name="NameTxt" Text=".NET Bootcamp N2" Foreground="Snow" FontWeight="DemiBold"
+                        <TextBlock x:Name="NameTxt" Text="Muhammad" Foreground="Snow" FontWeight="DemiBold"
                                FontSize="13" Margin="10 0 0 10"/>
                     </StackPanel>
-                    <TextBlock Name="FacultyMsgTxt" Text="Videoni tashlab yuboring..." Foreground="#7F91A4"/>
+                    <TextBlock Text="1" Name="StudentId" Visibility="Collapsed"/>
+                    <TextBlock Name="FacultyMsgTxt" Text=".NET" Foreground="#7F91A4"/>
                 </StackPanel>
+                
                 <StackPanel Grid.Column="1">
                     <TextBlock Name="DateTimeTxt" Text="16:53" Foreground="#7F91A4" HorizontalAlignment="Center" Margin="0 0 0 10"/>
                     
